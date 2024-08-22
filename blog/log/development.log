@@ -1343,3 +1343,192 @@ Started GET "/users/index" for 127.0.0.1 at 2024-08-22 13:54:39 +0300
   
 ActionController::RoutingError (No route matches [GET] "/users/index"):
   
+Started GET "/" for 127.0.0.1 at 2024-08-22 20:44:06 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ArticlesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering articles/index.html.erb within layouts/application
+  [1m[36mArticle Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "articles" WHERE "articles"."status" = ?[0m  [["status", "public"]]
+  ↳ app/models/concerns/visible.rb:12:in `public_count'
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  ↳ app/views/articles/index.html.erb:6
+  Rendered articles/index.html.erb within layouts/application (Duration: 66.5ms | Allocations: 12720)
+  Rendered layout layouts/application.html.erb (Duration: 159.1ms | Allocations: 45375)
+Completed 200 OK in 192ms (Views: 165.4ms | ActiveRecord: 2.1ms | Allocations: 56967)
+
+
+Started GET "/articles/1" for 127.0.0.1 at 2024-08-22 20:44:07 +0300
+Processing by ArticlesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mArticle Load (0.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/articles_controller.rb:8:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering articles/show.html.erb within layouts/application
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."article_id" = ?[0m  [["article_id", 1]]
+  ↳ app/views/articles/show.html.erb:14
+  Rendered collection of comments/_comment.html.erb [2 times] (Duration: 3.3ms | Allocations: 1862)
+  Rendered articles/show.html.erb within layouts/application (Duration: 32.5ms | Allocations: 12529)
+  Rendered layout layouts/application.html.erb (Duration: 32.7ms | Allocations: 12628)
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 0.6ms | Allocations: 14441)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <% unless comment.archived? %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+  <% unless comment.archived? %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+
+  <p>
+    <%= link_to "Destroy Comment", [comment.article, comment], data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                } %>
+  </p>
+
+  <p>
+  <%= form.label :status %><br>
+  <%= form.select :status, Visible::VALID_STATUSES, selected: 'public' %>
+  </p>
+
+<% end %>
+
+):
+1:    <% unless comment.archived? %>
+2:      <p>
+3:        <strong>Commenter:</strong>
+4:        <%= comment.commenter %>
+5:      </p>
+6:    
+7:      <p>
+8:        <strong>Comment:</strong>
+9:        <%= comment.body %>
+10:      </p>
+11:      <% unless comment.archived? %>
+12:      <p>
+13:        <strong>Commenter:</strong>
+14:        <%= comment.commenter %>
+15:      </p>
+16:    
+17:      <p>
+18:        <strong>Comment:</strong>
+19:        <%= comment.body %>
+20:      </p>
+21:    
+22:      <p>
+23:        <%= link_to "Destroy Comment", [comment.article, comment], data: {
+24:                      turbo_method: :delete,
+25:                      turbo_confirm: "Are you sure?"
+26:                    } %>
+27:      </p>
+28:    
+29:      <p>
+30:      <%= form.label :status %><br>
+31:      <%= form.select :status, Visible::VALID_STATUSES, selected: 'public' %>
+32:      </p>
+33:    
+34:    <% end %>
+  
+app/views/comments/_comment.html.erb:36: syntax error, unexpected end-of-input
+app/views/articles/show.html.erb:14
+Started GET "/articles/3" for 127.0.0.1 at 2024-08-22 20:44:08 +0300
+Processing by ArticlesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mArticle Load (1.2ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/articles_controller.rb:8:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering articles/show.html.erb within layouts/application
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."article_id" = ?[0m  [["article_id", 3]]
+  ↳ app/views/articles/show.html.erb:14
+  Rendered collection of templates [0 times] (Duration: 0.0ms | Allocations: 21)
+  Rendered articles/show.html.erb within layouts/application (Duration: 4.2ms | Allocations: 3103)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | Allocations: 4002)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 1.9ms | Allocations: 13557)
+
+
+  
+ActionView::Template::Error (Missing partial comments/_form with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder]}.
+
+Searched in:
+  * "/home/nick/ruby/ergasia_ruby/ruby-project/blog/app/views"
+  * "/home/nick/.asdf/installs/ruby/3.2.2/lib/ruby/gems/3.2.0/gems/turbo-rails-2.0.5/app/views"
+  * "/home/nick/.asdf/installs/ruby/3.2.2/lib/ruby/gems/3.2.0/gems/actiontext-7.1.3.3/app/views"
+  * "/home/nick/.asdf/installs/ruby/3.2.2/lib/ruby/gems/3.2.0/gems/actionmailbox-7.1.3.3/app/views"
+):
+    14: <%= render @article.comments %>
+    15: 
+    16: <h2>Add a comment:</h2>
+    17: <%= render 'comments/form' %>
+  
+app/views/articles/show.html.erb:17
+Started GET "/" for 127.0.0.1 at 2024-08-22 20:44:12 +0300
+Processing by ArticlesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering articles/index.html.erb within layouts/application
+  [1m[36mArticle Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "articles" WHERE "articles"."status" = ?[0m  [["status", "public"]]
+  ↳ app/models/concerns/visible.rb:12:in `public_count'
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  ↳ app/views/articles/index.html.erb:6
+  Rendered articles/index.html.erb within layouts/application (Duration: 2.2ms | Allocations: 974)
+  Rendered layout layouts/application.html.erb (Duration: 4.8ms | Allocations: 2343)
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 0.2ms | Allocations: 2605)
+
+
+Started GET "/articles/3" for 127.0.0.1 at 2024-08-22 20:44:12 +0300
+Processing by ArticlesController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mArticle Load (0.1ms)[0m  [1m[34mSELECT "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/articles_controller.rb:8:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering articles/show.html.erb within layouts/application
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."article_id" = ?[0m  [["article_id", 3]]
+  ↳ app/views/articles/show.html.erb:14
+  Rendered collection of templates [0 times] (Duration: 0.0ms | Allocations: 10)
+  Rendered articles/show.html.erb within layouts/application (Duration: 2.9ms | Allocations: 1768)
+  Rendered layout layouts/application.html.erb (Duration: 3.1ms | Allocations: 1859)
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.1ms | Allocations: 2470)
+
+
+  
+ActionView::Template::Error (Missing partial comments/_form with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder]}.
+
+Searched in:
+  * "/home/nick/ruby/ergasia_ruby/ruby-project/blog/app/views"
+  * "/home/nick/.asdf/installs/ruby/3.2.2/lib/ruby/gems/3.2.0/gems/turbo-rails-2.0.5/app/views"
+  * "/home/nick/.asdf/installs/ruby/3.2.2/lib/ruby/gems/3.2.0/gems/actiontext-7.1.3.3/app/views"
+  * "/home/nick/.asdf/installs/ruby/3.2.2/lib/ruby/gems/3.2.0/gems/actionmailbox-7.1.3.3/app/views"
+):
+    14: <%= render @article.comments %>
+    15: 
+    16: <h2>Add a comment:</h2>
+    17: <%= render 'comments/form' %>
+  
+app/views/articles/show.html.erb:17
+Started GET "/" for 127.0.0.1 at 2024-08-22 20:44:16 +0300
+Processing by ArticlesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering articles/index.html.erb within layouts/application
+  [1m[36mArticle Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "articles" WHERE "articles"."status" = ?[0m  [["status", "public"]]
+  ↳ app/models/concerns/visible.rb:12:in `public_count'
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+  ↳ app/views/articles/index.html.erb:6
+  Rendered articles/index.html.erb within layouts/application (Duration: 2.5ms | Allocations: 974)
+  Rendered layout layouts/application.html.erb (Duration: 4.8ms | Allocations: 2316)
+Completed 200 OK in 6ms (Views: 5.1ms | ActiveRecord: 0.2ms | Allocations: 2577)
+
+
