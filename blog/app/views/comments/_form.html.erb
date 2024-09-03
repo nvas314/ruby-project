@@ -1,11 +1,16 @@
 <%= form_with model: [ @article, @article.comments.build ] do |form| %>
     <p>
       <%= form.label :commenter %><br>
-      <%= form.text_field :commenter %>
+      Current user
+      <%= form.text_field :commenter , :hidden => true , :value => @current_user.username %>
     </p>
     <p>
       <%= form.label :body %><br>
       <%= form.text_area :body %>
+    </p>
+    <p>
+    <%= form.label :status %><br>
+    <%= form.select :status, Visible::VALID_STATUSES, selected: 'public' %>
     </p>
     <p>
       <%= form.submit %>

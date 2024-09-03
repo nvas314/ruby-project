@@ -1,0 +1,6 @@
+# Encrypt password
+gem 'bcrypt', '~> 3.1.13'
+
+bundle install
+
+restart

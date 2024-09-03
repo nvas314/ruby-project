@@ -2,10 +2,12 @@ class ArticlesController < ApplicationController
   http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
   def index
     @articles = Article.all
+    @current_user = User.find_by_id(session[:user_id]) #<%= @current_user.username %>
   end
 
   def show
     @article = Article.find(params[:id])
+    @current_user = User.find_by_id(session[:user_id])
   end
 
   def new

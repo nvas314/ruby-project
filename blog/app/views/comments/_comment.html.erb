@@ -1,23 +1,19 @@
 <% unless comment.archived? %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.commenter %>
-  </p>
 
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
-  <% unless comment.archived? %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.commenter %>
-  </p>
 
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
+<% if @current_user.username==comment.commenter %>
+<p style="color: green">
+<% else %>
+<p style="color: orange">
+<% end %>
+  <strong>Commenter:</strong>
+  <%= comment.commenter %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= comment.body %>
+</p>
 
   <p>
     <%= link_to "Destroy Comment", [comment.article, comment], data: {
@@ -26,9 +22,5 @@
                 } %>
   </p>
 
-  <p>
-  <%= form.label :status %><br>
-  <%= form.select :status, Visible::VALID_STATUSES, selected: 'public' %>
-  </p>
 
 <% end %>
