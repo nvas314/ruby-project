@@ -1,0 +1,19 @@
+<h1>PrivateMessages#show</h1>
+<p>Find me in app/views/private_messages/show.html.erb</p>
+
+
+<% @messages.each do |message| %>
+    <li>
+      <%= message.user_id %>:<%= message.text %>
+    </li>
+<% end %>
+
+<%= form_with model: [ @article, @article.comments.build ] do |form| %>
+    <p>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>

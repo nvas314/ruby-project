@@ -20,12 +20,11 @@ Our blog has <%= Article.public_count %> articles and counting!
   <% end %>
 </ul>
 
-<%= link_to "New Article", new_article_path %>
-
-
+<%= link_to "New Article", new_article_path %> <br>
 <%= link_to "Login", new_user_session_path%>
-
 <%= link_to "Logout", logout_path, method: :delete %>
+<%= link_to "Sign_up" , '/Signup' %> <br>
 
 
-<%= link_to "Sign_up" , '/Signup' %>
+<%= link_to "Show messages", messengers_path%>
+

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'index/new'
+  get 'index/show'
   get 'user_sessions/new'
   post 'user_sessions/new', to: "user_sessions#create"
   get '/logout', to: "user_sessions#destroy"
@@ -12,6 +14,11 @@ end
 
 resources :users, only: [:new , :index , :show, :create]
 resources :user_sessions , only: [:new,:destroy]
+
+resources :contacts
+resources :messengers
+resources :private_messages
+
 #get "log_in", to: "user_sessions#new"
 #post "log_in", to: "user_sessions#create"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

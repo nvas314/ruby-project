@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_03_145919) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_04_202918) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -29,6 +29,36 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_03_145919) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  create_table "mess", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "to_user_id"
+    t.boolean "blocked"
+    t.datetime "last_message"
+    t.datetime "last_saw"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_mess_on_user_id"
+  end
+
+  create_table "messengers", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "to_user_id"
+    t.string "status"
+    t.boolean "saw_last"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messengers_on_user_id"
+  end
+
+  create_table "private_messages", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "to_user_id"
+    t.text "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_private_messages_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password"
@@ -40,4 +70,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_03_145919) do
   end
 
   add_foreign_key "comments", "articles"
+  add_foreign_key "mess", "users"
+  add_foreign_key "messengers", "users"
+  add_foreign_key "private_messages", "users"
 end
