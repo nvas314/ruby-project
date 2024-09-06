@@ -1,0 +1,23 @@
+<h1>UserTeams#index</h1>
+<p>Find me in app/views/user_teams/index.html.erb</p>
+
+
+<ul>
+<% @myteams.each do |team|%>
+    <li>
+    <%= team.title %>   
+    <p>
+    <%= link_to "Leave", user_team_path(UserTeam.find_by(team_id:team.id,user_id:session[:user_id]).id), data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                } %>
+    <%= link_to "Show", team_path(team)%>
+
+    
+    <% unless UserTeam.where(team_id:team.id,saw_last:false).blank?%>
+    New Messages!!
+    <% end %>
+    </p>
+    </li>
+<% end %>
+</ul>

@@ -1,0 +1,14 @@
+<%= form_with model: [ @team, @team.team_posts.build ] do |form| %>
+    <p>
+      <%= form.label :user_id %><br>
+      <%= form.text_field :user_id , :value => session[:user_id] %>
+    </p>
+    <p>
+      <%= form.label :post %><br>
+      <%= form.text_area :post %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+  

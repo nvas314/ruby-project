@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  get 'user_teams/index'
+  get 'user_teams/show'
+  get 'user_teams/new'
+  get 'team_posts/index'
+  get 'team_posts/show'
+  get 'team_posts/new'
+  get 'teams/index'
+  get 'teams/new'
+  get 'teams/show'
   get 'index/new'
   get 'index/show'
   get 'user_sessions/new'
@@ -18,6 +27,12 @@ resources :user_sessions , only: [:new,:destroy]
 resources :contacts
 resources :messengers
 resources :private_messages
+
+resources :teams do
+  resources :team_posts
+end
+
+resources :user_teams
 
 #get "log_in", to: "user_sessions#new"
 #post "log_in", to: "user_sessions#create"

@@ -23,6 +23,7 @@ Table user_teams {
   id integer [primary key]
   user_id integer
   team_id integer
+  status string
   last_message datetime
   last_saw datetime
 }
@@ -46,7 +47,7 @@ Table team_posts {
   id integer [primary key]
   team_id integer
   user_id integer
-  body text [note: 'Content of the post']
+  post text [note: 'Content of the post']
   created_at timestamp
 }
 

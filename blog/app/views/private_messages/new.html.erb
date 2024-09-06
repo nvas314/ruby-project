@@ -1,2 +1,7 @@
 <h1>PrivateMessages#new</h1>
 <p>Find me in app/views/private_messages/new.html.erb</p>
+<% @messages.each do |message| %>
+    <li>
+      <%= message.user_id %>:<%= message.text %>
+    </li>
+<% end %>

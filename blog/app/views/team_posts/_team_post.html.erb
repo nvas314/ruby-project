@@ -1,0 +1,13 @@
+<% if session[:user_id]==team_post.user_id %>
+<p style="color: green">
+<% elsif team_post.created_at >= @last_saw%>
+<p style="color:yellow">
+<% else %>
+<p style="color: red">
+<% end %>
+
+<%= team_post.user_id %><strong>-></strong><%= team_post.post %>
+
+<strong>When:</strong>
+<%= team_post.created_at %>
+</p>

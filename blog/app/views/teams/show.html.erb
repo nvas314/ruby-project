@@ -1,0 +1,27 @@
+<h1>Teams#show</h1>
+<p>Find me in app/views/teams/show.html.erb</p>
+
+<h1>Team name = <%= @team.title %></h1>
+
+<p>From user = <%= @owner_user.username %></p>
+
+<p><%= @last_saw %></p>
+
+
+<ul>
+  <li><%= link_to "Edit", edit_team_path(@team) %></li>
+  <li><%= link_to "Destroy", team_path(@team), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+</ul>
+
+<%= link_to "Start" , root_path %>
+
+<h2><%= link_to "Return to teams" , teams_path %></h2>
+
+<h2>Post</h2>
+<%= render @team.team_posts %>
+
+<h2>Add a comment:</h2>
+<%= render 'team_posts/form' %>

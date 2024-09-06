@@ -2,16 +2,32 @@
 <p>Find me in app/views/private_messages/show.html.erb</p>
 
 
+<p>Find me in app/views/private_messages/new.html.erb</p>
 <% @messages.each do |message| %>
+  <% if message.user_id == session[:user_id]%>
+  <p style="color:blue">
+  <% else %>
+  <p style="color:cyan">
+  <%end%>
     <li>
-      <%= message.user_id %>:<%= message.text %>
+      <%= message.user_id %>[<%= message.created_at %>]:<%= message.text %>
     </li>
+  </p>
 <% end %>
 
-<%= form_with model: [ @article, @article.comments.build ] do |form| %>
+
+<%= form_with model: @new_message do |form| %>
+  <p>
+    <%= form.label :user_id %><br>
+    <%= form.text_area :user_id %>
+  </p>
+  <p>
+    <%= form.label :to_user_id %><br>
+    <%= form.text_area :to_user_id %>
+  </p>
     <p>
-      <%= form.label :body %><br>
-      <%= form.text_area :body %>
+      <%= form.label :text %><br>
+      <%= form.text_area :text %>
     </p>
     <p>
       <%= form.submit %>

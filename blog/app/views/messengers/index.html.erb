@@ -3,14 +3,64 @@
 <%= link_to "New Contact", new_messenger_path%>
 
 <ul>
-  <% @messengers.each do |messenger| %>
+Contacts:
+  <% @messengers_c.each do |messenger| %>
       <li>
         <%= User.find_by(id: messenger.to_user_id).username %>
-        <%= link_to "Send a message" , private_message_path(messenger) %>
+        <%= link_to "Send a message" , private_message_path(User.find_by(id: messenger.to_user_id).id) %>
         <%= link_to "Delete" , messenger_path(messenger), data: {
           turbo_method: :delete,
           turbo_confirm: "Are you sure?"
         } %>
+        <% if messenger.saw_last == false %>
+        New Message!
+        <% end %>
       </li>
   <% end %>
 </ul>
+
+<ul>
+Messages:
+  <% @messengers_m.each do |messenger| %>
+      <li>
+        <%= User.find_by(id: messenger.to_user_id).username %>
+        <%= link_to "Send a message" , private_message_path(User.find_by(id: messenger.to_user_id).id) %>
+        <%= link_to "Delete" , messenger_path(messenger), data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?"
+        } %>
+        <% if messenger.saw_last == false %>
+        New Message!
+        <% end %>
+      </li>
+  <% end %>
+</ul>
+
+<ul>
+Teams:
+  <% @teams_m.each do |messenger| %>
+      <li>
+        <%= Team.find_by(id: messenger.team_id).title %>
+        <%= link_to "Show" , team_path(messenger.team_id) %>
+        New Message!
+      </li>
+  <% end %>
+</ul>
+
+<ul>
+Blocked:
+  <% @messengers_b.each do |messenger| %>
+      <li>
+        <%= User.find_by(id: messenger.to_user_id).username %>
+        <%= link_to "Send a message" , private_message_path(User.find_by(id: messenger.to_user_id).id) %>
+        <%= link_to "Delete" , messenger_path(messenger), data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?"
+        } %>
+        <% if messenger.saw_last == false %>
+        New Message!
+        <% end %>
+      </li>
+  <% end %>
+</ul>
+

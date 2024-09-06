@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team: one
+  user_id: 1
+  status: MyString
+  last_message: 2024-09-06 01:49:35
+  saw_last: false
+
+two:
+  team: two
+  user_id: 1
+  status: MyString
+  last_message: 2024-09-06 01:49:35
+  saw_last: false

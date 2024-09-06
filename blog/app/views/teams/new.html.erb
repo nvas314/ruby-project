@@ -1,0 +1,24 @@
+<h1>Teams#new</h1>
+<p>Find me in app/views/teams/new.html.erb</p>
+
+<%= form_with model: @team do |form| %>
+    <div>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </div>
+  
+    <div>
+      <%= form.label :owner_id %><br>
+      <%= form.text_area :owner_id , :value => session[:user_id] %><br>
+    </div>
+  
+    <div>
+    <%= form.label :status %><br>
+    <%= form.select :status, [["Public", "public"], ["Private", "private"]]%>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+  
