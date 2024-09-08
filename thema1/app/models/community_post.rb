@@ -1,2 +1,0 @@
-class CommunityPost < ApplicationRecord
-end

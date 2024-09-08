@@ -1,2 +1,0 @@
-class CommunityPostsController < ApplicationController
-end

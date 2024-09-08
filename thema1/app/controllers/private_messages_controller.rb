@@ -1,2 +1,0 @@
-class PrivateMessagesController < ApplicationController
-end

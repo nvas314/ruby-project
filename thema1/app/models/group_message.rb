@@ -1,2 +1,0 @@
-class GroupMessage < ApplicationRecord
-end
