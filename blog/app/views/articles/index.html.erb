@@ -6,27 +6,18 @@
 Noone
 <% end %>
 
-<h1>Articles</h1>
-
-Our blog has <%= Article.public_count %> articles and counting!
-
-<ul>
-  <% @articles.each do |article| %>
-    <% unless article.archived? %>
-      <li>
-        <%= link_to article.title, article %>
-      </li>
-    <% end %>
-  <% end %>
-</ul>
-
-<%= link_to "New Article", new_article_path %> <br><br>
+<h1>Home</h1><br>
+<h3>
 <%= link_to "Login", new_user_session_path%>
+<% if session[:user_id] %>
 <%= link_to "Logout", logout_path, method: :delete %>
+<% end %>
 <%= link_to "Sign_up" , '/Signup' %> <br><br>
 
 
+<% if session[:user_id] %>
 <%= link_to "Show messages", messengers_path%>
 <%= link_to "Show Teams", teams_path %>
 <%= link_to "My Teams", user_teams_path %> <br><br>
-
+<% end %>
+</h3>

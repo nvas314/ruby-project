@@ -1,20 +1,23 @@
 <h1>Teams#show</h1>
 <p>Find me in app/views/teams/show.html.erb</p>
 
+<%= form_with url: team_path(@team), method: :get do |form| %>
+  <%= form.label :search, "Search Post:" %>
+  <%= form.text_field :search , value: @search %>
+  <%= form.submit "Search" %>
+<% end %>
+
 <h1>Team name = <%= @team.title %></h1>
 
 <p>From user = <%= @owner_user.username %></p>
 
 <p><%= @last_saw %></p>
 
-
+<%if session[:user_id] == @team.owner_id %>
 <ul>
-  <li><%= link_to "Edit", edit_team_path(@team) %></li>
-  <li><%= link_to "Destroy", team_path(@team), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></li>
+  <li><%= link_to "Destroy", team_path(@team), data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %></li>
 </ul>
+<% end %>
 
 <%= link_to "Start" , root_path %>
 
@@ -25,3 +28,17 @@
 
 <h2>Add a comment:</h2>
 <%= render 'team_posts/form' %>
+
+<ul>
+<h2>Members:</h2>
+  <li>
+  <%= User.find_by(id:@team.owner_id).username%> Owner
+  </li>
+  <% @members.each do |member| %>
+      <%unless @team.owner_id == member.user_id%>
+      <li>
+      <%= User.find_by(id:member.user_id).username%> Joined at: <%= UserTeam.find_by(user_id:member.user_id,team_id:@team.id).created_at%>
+      </li>
+      <% end %>
+  <% end %>
+</ul>

@@ -4,6 +4,9 @@ class UserTeamsController < ApplicationController
     @myteams = Team.includes(:user_teams).where("user_teams.user_id" => session[:user_id])
     @myteams = @myteams.order('last_message DESC')
 
+
+    @invitations = Team.includes(:user_teams).where("user_teams.user_id" => session[:user_id]).where(status:"invitation")
+
   end
 
 

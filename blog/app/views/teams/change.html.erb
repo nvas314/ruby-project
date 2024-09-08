@@ -1,0 +1,7 @@
+<%= form_with url: edit_team_path, method: :post do |form| %>
+    <%= form.label :team %>
+    <%= form.text_field :team  %>
+    <%= form.label :new_owner %>
+    <%= form.text_field :new_owner %>
+    <%= form.submit "Change owner" %>
+  <% end %>

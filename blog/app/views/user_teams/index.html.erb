@@ -4,19 +4,40 @@
 
 <ul>
 <% @myteams.each do |team|%>
+  <%unless team.status == "invitation" %>
     <li>
     <%= team.title %>   
     <p>
+    <% if team.owner_id == session[:user_id]%>
+    You have to change ownership to leave the team
+    <% else %>
     <%= link_to "Leave", user_team_path(UserTeam.find_by(team_id:team.id,user_id:session[:user_id]).id), data: {
                   turbo_method: :delete,
                   turbo_confirm: "Are you sure?"
                 } %>
+    <% end %>
     <%= link_to "Show", team_path(team)%>
-
-    
+  
+  
+    <% if team.owner_id == session[:user_id]%>
+    <%= link_to "Delete Team", team_path(team), data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                } %>
+    <% end %>
     <% unless UserTeam.where(team_id:team.id,saw_last:false).blank?%>
     New Messages!!
     <% end %>
+    </p>
+    </li>
+<% end %>
+<% end %>
+
+<% @invitations.each do |team|%>
+    <li>
+    <%= team.title %>   
+    <p>
+    <%= link_to "Join", team_path(team)%>
     </p>
     </li>
 <% end %>

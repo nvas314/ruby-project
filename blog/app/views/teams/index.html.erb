@@ -5,14 +5,16 @@
 
 <ul>
   <% @teams.each do |team| %>
+  <%if team.status == "public" %>
       <li>
       <%= team.title%> -> <%= link_to "join", team %>
       <%if team.owner_id == session[:user_id]%>
       Owner
-      <%elsif UserTeam.where(user_id:session[:user_id],team_id:team.id)%>
+      <%elsif !UserTeam.where(user_id:session[:user_id],team_id:team.id).blank?%>
       Joined
       <% end %>
       </li>
+  <% end %>
   <% end %>
 </ul>
 

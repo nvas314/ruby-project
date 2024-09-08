@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'user_sessions/new'
   post 'user_sessions/new', to: "user_sessions#create"
   get '/logout', to: "user_sessions#destroy"
+  get 'messengers/block' , to: "messengers#block"
+  get 'messengers/add_to_contact' , to: "messengers#add_to_contact"
   #post 'user_sessions/create', to: "user_sessions#create"
 root "articles#index"
 get "/Signup" , to: "users#new" , as: 'user'

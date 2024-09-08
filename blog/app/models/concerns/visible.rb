@@ -8,7 +8,7 @@ module Visible
     end
   
     class_methods do
-      def public_count
+      def public_count #<%= Article.public_count %>
         where(status: 'public').count
       end
     end

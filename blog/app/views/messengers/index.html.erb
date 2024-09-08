@@ -2,6 +2,8 @@
 <p>Find me in app/views/messengers/index.html.erb</p>
 <%= link_to "New Contact", new_messenger_path%>
 
+<%= link_to "Start" , root_path %>
+
 <ul>
 Contacts:
   <% @messengers_c.each do |messenger| %>
@@ -15,6 +17,7 @@ Contacts:
         <% if messenger.saw_last == false %>
         New Message!
         <% end %>
+        <%= link_to "Block", messengers_block_path(messenger) %>
       </li>
   <% end %>
 </ul>
@@ -32,6 +35,8 @@ Messages:
         <% if messenger.saw_last == false %>
         New Message!
         <% end %>
+        <%= link_to "Add to contact", messengers_add_to_contact_path(messenger) %>
+        <%= link_to "Block", messengers_block_path(messenger) %>
       </li>
   <% end %>
 </ul>

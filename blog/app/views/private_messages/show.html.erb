@@ -1,15 +1,17 @@
 <h1>PrivateMessages#show</h1>
 <p>Find me in app/views/private_messages/show.html.erb</p>
 
-
+<%=@last_saw%>
 <p>Find me in app/views/private_messages/new.html.erb</p>
 <% @messages.each do |message| %>
+  <p>
   <% if message.user_id == session[:user_id]%>
-  <p style="color:blue">
+  <li style="color:blue">
+  <% elsif message.created_at > @last_saw%>
+  <li style="color:yellow">
   <% else %>
-  <p style="color:cyan">
+  <li style="color:cyan">
   <%end%>
-    <li>
       <%= message.user_id %>[<%= message.created_at %>]:<%= message.text %>
     </li>
   </p>

@@ -9,8 +9,14 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @current_user = User.find_by_id(session[:user_id])
     @owner_user = User.find_by_id(@team.owner_id)
+    @members = UserTeam.where(team_id:@team).order('created_at DESC')
 
-    
+    if params.has_key?(:search)
+      @search = params[:search]
+    else
+      @search = ""
+    end
+
     @my_team = UserTeam.where(team_id:params[:id] , user_id: session[:user_id])
     if @my_team.blank?
       @last_saw = DateTime.current
@@ -25,6 +31,10 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
+  end
+
+  def edit
+    @team = User.find_by(id: params[:new_owner])
   end
 
   def create
@@ -56,7 +66,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @team.destroy
 
-    redirect_to root_path, status: :see_other
+    redirect_to request.referrer, status: :see_other
   end
 
 
