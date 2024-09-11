@@ -10,7 +10,11 @@
       <% else %>
       <li style="color:cyan">
       <%end%>
-          <%= message.user_id %>[<%= message.created_at %>]:<%= message.text %>
+          <%if !User.where(id: message.user_id).blank?%>
+          <%= User.find_by(id: message.user_id).username %>
+          <%else%>
+          [deleted]
+          <%end%> [<%= message.created_at %>]:<%= message.text %>
         </li>
       </p>
     <% end %>

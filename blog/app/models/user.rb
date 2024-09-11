@@ -5,7 +5,6 @@ class User < ApplicationRecord
     :omniauthable
 
 
-    has_many :contacts, dependent: :destroy
     has_many :messengers, dependent: :destroy
     has_many :private_messages, dependent: :destroy
 

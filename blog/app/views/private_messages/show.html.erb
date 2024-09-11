@@ -1,4 +1,9 @@
-<h1>Message to <%= User.find_by(id:params[:id]).username%>  </h1>
+<h1>Message to 
+<%if !User.where(id: params[:id]).blank?%>
+<%= User.find_by(id:params[:id]).username%>
+<%else%>
+[deleted]
+<%end%></h1>
 
 <% @messages.each do |message| %>
   <p>
@@ -9,7 +14,11 @@
   <% else %>
   <li style="color:cyan">
   <%end%>
-      <%= User.find_by(id:message.user_id).username %> [<%= message.created_at %>] -> <%= message.text %>
+  <%if !User.where(id: message.to_user_id).blank?%>
+  <%= User.find_by(id: message.to_user_id).username %>
+  <%else%>
+  [deleted]
+  <%end%> [<%= message.created_at %>] -> <%= message.text %>
     </li>
   </p>
 <% end %>

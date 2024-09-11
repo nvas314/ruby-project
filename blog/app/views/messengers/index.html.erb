@@ -5,8 +5,12 @@
 Contacts:
   <% @messengers_c.each do |messenger| %>
       <li>
+      <%if !User.where(id: messenger.to_user_id).blank?%>
         <%= User.find_by(id: messenger.to_user_id).username %>
         <%= link_to "Send a message" , private_message_path(User.find_by(id: messenger.to_user_id).id) %>
+      <%else%>
+      [deleted]
+      <%end%>
         <%= link_to "Delete" , messenger_path(messenger), data: {
           turbo_method: :delete,
           turbo_confirm: "Are you sure?"
@@ -23,8 +27,12 @@ Contacts:
 Messages:
   <% @messengers_m.each do |messenger| %>
       <li>
+      <%if !User.where(id: messenger.to_user_id).blank?%>
         <%= User.find_by(id: messenger.to_user_id).username %>
         <%= link_to "Send a message" , private_message_path(User.find_by(id: messenger.to_user_id).id) %>
+      <%else%>
+      [deleted]
+      <%end%>
         <%= link_to "Delete" , messenger_path(messenger), data: {
           turbo_method: :delete,
           turbo_confirm: "Are you sure?"
@@ -53,8 +61,12 @@ Teams:
 Blocked:
   <% @messengers_b.each do |messenger| %>
       <li>
+      <%if !User.where(id: messenger.to_user_id).blank?%>
         <%= User.find_by(id: messenger.to_user_id).username %>
         <%= link_to "Send a message" , private_message_path(User.find_by(id: messenger.to_user_id).id) %>
+      <%else%>
+      [deleted]
+      <%end%>
         <%= link_to "Delete" , messenger_path(messenger), data: {
           turbo_method: :delete,
           turbo_confirm: "Are you sure?"

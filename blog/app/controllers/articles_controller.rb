@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   
   def index
     @articles = Article.all
-    @current_user = User.find_by_id(session[:user_id]) #<%= @current_user.username %>
+    @current_user = User.find_by_id(session[:user_id])
   end
 
   def show

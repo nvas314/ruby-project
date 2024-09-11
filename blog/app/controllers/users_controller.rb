@@ -39,7 +39,9 @@ class UsersController < ApplicationController
     
       def destroy
         @user = User.find(params[:id])
+        @user_id = @user.id
         @user.destroy
+        Team.delete_by(owner_id:@user_id)
         redirect_to logout_path
       end
     
