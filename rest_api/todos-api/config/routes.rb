@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  #mount Rswag::Ui::Engine => '/ui-docs'
+  #mount Rswag::Api::Engine => '/api-docs'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -9,8 +11,17 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/ui-docs'
+  mount Rswag::Api::Engine => '/api-docs'
     resources :todos do
       resources :items
     end
+
+
+
+    post '/auth/login', to: "auth#create"
+    get '/auth/logout', to: "auth#index"
+    post '/signup', to: "users#create"
+    
   end
 end

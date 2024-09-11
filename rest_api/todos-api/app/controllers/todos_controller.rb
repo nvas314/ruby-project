@@ -3,18 +3,18 @@ class TodosController < ApplicationController
   
     # GET /todos
     def index
-      @todos = Todo.all
+      @todos = Todo.where(created_by:session[:user_id])
       json_response(@todos)
     end
   
     # POST /todos
     def create
-      @todo = Todo.create!(todo_params)
+      @todo = Todo.create!(title:params[:title],created_by:session[:user_id])
       json_response(@todo, :created)
     end
   
     # GET /todos/:id
-    def show
+    def show  
       json_response(@todo)
     end
   
@@ -34,7 +34,7 @@ class TodosController < ApplicationController
   
     def todo_params
       # whitelist params
-      params.permit(:title, :created_by)
+      params.permit(:title)
     end
   
     def set_todo
