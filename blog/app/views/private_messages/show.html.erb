@@ -1,8 +1,5 @@
-<h1>PrivateMessages#show</h1>
-<p>Find me in app/views/private_messages/show.html.erb</p>
+<h1>Message to <%= User.find_by(id:params[:id]).username%>  </h1>
 
-<%=@last_saw%>
-<p>Find me in app/views/private_messages/new.html.erb</p>
 <% @messages.each do |message| %>
   <p>
   <% if message.user_id == session[:user_id]%>
@@ -12,7 +9,7 @@
   <% else %>
   <li style="color:cyan">
   <%end%>
-      <%= message.user_id %>[<%= message.created_at %>]:<%= message.text %>
+      <%= User.find_by(id:message.user_id).username %> [<%= message.created_at %>] -> <%= message.text %>
     </li>
   </p>
 <% end %>
@@ -20,12 +17,10 @@
 
 <%= form_with model: @new_message do |form| %>
   <p>
-    <%= form.label :user_id %><br>
-    <%= form.text_area :user_id %>
+    <%= form.hidden_field :user_id, value: session[:user_id] %>
   </p>
   <p>
-    <%= form.label :to_user_id %><br>
-    <%= form.text_area :to_user_id %>
+    <%= form.hidden_field :to_user_id, value: User.find_by(id:params[:id]).id %>
   </p>
     <p>
       <%= form.label :text %><br>

@@ -4,78 +4,115 @@ info:
   title: API V1
   version: v1
 paths:
-  "/blogs":
+  "/auth/login":
     post:
-      summary: Creates a blog
-      tags:
-      - Blogs
-      parameters: []
-      responses:
-        '201':
-          description: blog created
-        '422':
-          description: invalid request
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                content:
-                  type: string
-              required:
-              - title
-              - content
-  "/blogs/{id}":
-    get:
-      summary: Retrieves a blog
-      tags:
-      - Blogs
-      - Another Tag
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
+      summary: create auth
       responses:
         '200':
-          description: blog found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  title:
-                    type: string
-                  content:
-                    type: string
-                required:
-                - id
-                - title
-                - content
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  title:
-                    type: string
-                  content:
-                    type: string
-                required:
-                - id
-                - title
-                - content
-        '404':
-          description: blog not found
-        '406':
-          description: unsupported accept header
+          description: successful
+  "/auth/logout":
+    get:
+      summary: list auths
+      responses:
+        '200':
+          description: successful
+  "/todos/{todo_id}/items":
+    parameters:
+    - name: todo_id
+      in: path
+      description: todo_id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list items
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create item
+      responses:
+        '200':
+          description: successful
+  "/todos/{todo_id}/items/{id}":
+    parameters:
+    - name: todo_id
+      in: path
+      description: todo_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show item
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update item
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update item
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete item
+      responses:
+        '200':
+          description: successful
+  "/todos":
+    get:
+      summary: list todos
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create todo
+      responses:
+        '200':
+          description: successful
+  "/todos/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show todo
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update todo
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update todo
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete todo
+      responses:
+        '200':
+          description: successful
+  "/signup":
+    post:
+      summary: create user
+      responses:
+        '200':
+          description: successful
 servers:
 - url: https://{defaultHost}
   variables:

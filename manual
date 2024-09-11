@@ -4,3 +4,10 @@ gem 'bcrypt', '~> 3.1.13'
 bundle install
 
 restart
+
+
+2)
+gem 'bcrypt', '~> 3.1.13'
+
+rails generate rspec:swagger AuthController
+rake rswag

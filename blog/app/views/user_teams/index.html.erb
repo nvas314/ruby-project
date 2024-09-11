@@ -1,13 +1,33 @@
-<h1>UserTeams#index</h1>
-<p>Find me in app/views/user_teams/index.html.erb</p>
+<h1>My Teams</h1>
 
 
-<ul>
+<table class="table table-hover">
+<thead><tr><th>Team</th><th>Action</th><th>Action</th><th>Action</th></tr></thead><tbody>
 <% @myteams.each do |team|%>
-  <%unless team.status == "invitation" %>
-    <li>
+    <%unless team.status == "invitation" %>
+
+    <% if UserTeam.where(team_id:team.id,saw_last:false).blank?%>
+    <tr class="table-light">
+    <% else %>
+    <tr class="table-warning">
+    <% end %>
+    <tr>
+
+    <td>
     <%= team.title %>   
-    <p>
+    </td>
+
+    <td>
+    <%= link_to "Show", team_path(team)%>
+    </td>
+
+    <% unless UserTeam.where(team_id:team.id,saw_last:false).blank?%>
+    <td>
+    New Messages!!
+    </td>
+    <% end %>
+
+    <td>
     <% if team.owner_id == session[:user_id]%>
     You have to change ownership to leave the team
     <% else %>
@@ -16,29 +36,39 @@
                   turbo_confirm: "Are you sure?"
                 } %>
     <% end %>
-    <%= link_to "Show", team_path(team)%>
-  
-  
+    </td>
+
     <% if team.owner_id == session[:user_id]%>
+    <td>
     <%= link_to "Delete Team", team_path(team), data: {
                   turbo_method: :delete,
                   turbo_confirm: "Are you sure?"
                 } %>
-    <% end %>
-    <% unless UserTeam.where(team_id:team.id,saw_last:false).blank?%>
-    New Messages!!
+    </td>
+    
     <% end %>
     </p>
-    </li>
+    </tr>
 <% end %>
 <% end %>
-
-<% @invitations.each do |team|%>
-    <li>
+</tbody>
+</table>
+<table class="table table-hover">
+<h1>Invitations:</h1>
+<thead><tr><th>Team</th><th>Action</th><th>Owner</th></tr></thead><tbody>
+<% @invites.each do |team|%>
+    <tr>
+    <td>
     <%= team.title %>   
-    <p>
+    </td>
+    <td>
     <%= link_to "Join", team_path(team)%>
-    </p>
-    </li>
+    </td>
+    <td>
+    <%= User.find_by(id:Team.find_by(id:team.id).owner_id).username %>
+    </td>
+    </tr>
 <% end %>
-</ul>
+</tbody>
+</table>
+</table>

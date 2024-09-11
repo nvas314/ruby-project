@@ -1,0 +1,36 @@
+<% unless team_post.user_id == session[:user_id] %>
+<button id="myBtn" onclick="modal_d(<%=team_post.id%>)">New Message</button>
+<div id="myModal<%=team_post.id%>" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="close()">&times;</span>
+    <% @messages.where(user_id: team_post.user_id).or(PrivateMessage.where(to_user_id:team_post.user_id)).last(5).each do |message| %>
+      <p>
+      <% if message.user_id == session[:user_id]%>
+      <li style="color:blue">
+      <% else %>
+      <li style="color:cyan">
+      <%end%>
+          <%= message.user_id %>[<%= message.created_at %>]:<%= message.text %>
+        </li>
+      </p>
+    <% end %>
+<%= form_with model: PrivateMessage.new(user_id:session[:user_id],to_user_id:team_post.user_id) do |form| %>
+  <p>
+    <%= form.hidden_field :user_id %>
+  </p>
+  <p>
+    <%= form.hidden_field :to_user_id %>
+  </p>
+    <p>
+      <%= form.label :text %><br>
+      <%= form.text_area :text %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+  </div>
+
+</div>
+
+<% end %>

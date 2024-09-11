@@ -1,10 +1,13 @@
-<h1>Messengers#new</h1>
-<p>Find me in app/views/messengers/new.html.erb</p>
+<h1>New Contact</h1>
 
   <%= form_with url: "/messengers", method: :post do |form| %>
     <%= form.label :username, "Username:" %>
     <%= form.text_field :username %>
     <%= form.submit "Add Contact" %>
   <% end %>
-  
+    <% flash.each do |type, msg| %>
+    <div>
+      <%= msg %>
+    </div>
+  <% end %>
   

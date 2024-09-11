@@ -1,6 +1,10 @@
-class MessengersController < ApplicationController
+class MessengersController < ApplicationController  
+  before_action :require_login
+
+  
     def index
       @messengers = Messenger.where(user_id: session[:user_id])
+      @messengers = @messengers.where.not(status:"invitation") #invitations are not messages  
       @messengers_c = @messengers.where(status:"contact")
       @messengers_m = @messengers.where(status:"messenger")
       @messengers_b = @messengers.where(status:"blocked")
@@ -17,30 +21,36 @@ class MessengersController < ApplicationController
   
     def create
       #@messenger = Messenger.new
+      @messengers = Messenger.find_by(user_id: session[:user_id],to_user_id:User.find_by(params[:username]).id)
       @to_user = User.find_by(username: params[:username])
-      if (@to_user && !Messenger.where(user_id: session[:user_id] , to_user_id:@to_user.id , status: "messenger").blank?)
-        @c_change = Messenger.where(user_id: session[:user_id] , to_user_id:@to_user.id , status: "messenger")
+      if !@to_user
+      flash[:alert] = "User does not exist"
+        redirect_to new_messenger_path
+      elsif !Messenger.where(user_id: session[:user_id] , to_user_id:@to_user.id).blank?
+        @c_change = Messenger.where(user_id: session[:user_id] , to_user_id:@to_user.id)
         @c_change.update(status: "contact")
         redirect_to messengers_path
-      elsif (@to_user && Messenger.where(user_id: session[:user_id] , to_user_id:@to_user.id , status: "contact").blank?)
+      else
         @c_new = Messenger.new(user_id: session[:user_id] , to_user_id:@to_user.id , status: "contact", saw_last:true , last_message:DateTime.current)
         @c_new.save
         redirect_to messengers_path
-      else
-        redirect_to new_messenger_path
       end
     end
 
-    def add_to_contact
-      @block_user = Messenger.find(params[:format])
-      @block_user.update(status:"contact")
-      redirect_to messengers_path
-    end
     def block
-
+      @messengers = Messenger.find_by(user_id: session[:user_id],to_user_id:User.find_by(params[:username]).id)
+      if @messengers
       @block_user = Messenger.find(params[:format])
       @block_user.update(status:"blocked")
+      end
       redirect_to messengers_path
+    end
+
+    def invite_to_team
+      @to_user = User.find_by(id:params[:format]).id
+      @new_inv = Messenger.new(user_id:session[:user_id],to_user_id:@to_user,status:"invitation")
+      @new_inv.save
+      redirect_to private_message_path(@new_messenger)
     end
 
     def destroy

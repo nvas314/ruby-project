@@ -1,37 +1,40 @@
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-<ul class="navbar-nav mr-auto">
-<li class="nav-item active">
-<a class="navbar-brand" href="#">
-  <img src="/globe.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-  Messenger
-  </a>
-</li>
-<li class="nav-item active">
-  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="#">Browse Teams</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="#">My Teams</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="#">My Messages</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="#">Login</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="#">Logout</a>
-</li>
-<form class="form-inline my-2 my-lg-0">
-  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-  <li class="nav-item">
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </li>
-</form>
-</ul>
-</div>
-</nav>
+  <a class="navbar-brand  ms-2" href=<%= root_path %>>
+    <img src="/globe.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+    Messenger
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+    </li>
+    <li class="nav-item active">
+    <%= link_to "Home", root_path , class:"nav-link"%>
+    </li>
+    <li class="nav-item">
+    <%= link_to "Browse Teams", teams_path , class:"nav-link"%>
+    </li>
+    <li class="nav-item">
+    <%= link_to "My Teams#{@notf_invites}", user_teams_path , class:"nav-link"%>
+    </li>
+    <li class="nav-item">
+    <%= link_to "My Messages#{@notf_messages}", messengers_path , class:"nav-link"%>
+    </li>
+    </div>
+    </ul>
+    </div>
+    <% if !session[:user_id] %>
+    <div class="mx-auto p-2">
+    <%= link_to "Signup", '/Signup' , class:"nav-link"%>
+    </div>
+    <div class="mx-auto p-2">
+    <%= link_to "Login", new_user_session_path , class:"nav-link"%>
+    </div>
+    <% else %>
+    <div class="mx-auto p-2">
+    <%= link_to "Logout", logout_path , class:["nav-link","nav-item","float-md-right"]%>
+    </div>
+    <div class="mx-auto p-2">
+    <div class="d-inline p-2 text-bg-primary">User: <%= User.find_by(id:session[:user_id]).username%></div>
+    </div>
+    <% end %>
+  </nav>

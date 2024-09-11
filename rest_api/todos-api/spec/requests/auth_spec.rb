@@ -1,10 +1,38 @@
-require 'rails_helper'
+require 'swagger_helper'
 
-RSpec.describe "Auths", type: :request do
-  describe "POST /auth/login" do
-    #pending "add some examples (or delete) #{__FILE__}"
+RSpec.describe 'auth', type: :request do
+
+  path '/auth/login' do
+
+    post('create auth') do
+      response(200, 'successful') do
+
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
+    end
   end
-  describe "GET /auth/logout" do
-    #pending "add some examples (or delete) #{__FILE__}"
+
+  path '/auth/logout' do
+
+    get('list auths') do
+      response(200, 'successful') do
+
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
+    end
   end
 end

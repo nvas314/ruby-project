@@ -1,11 +1,21 @@
-require 'rails_helper'
+require 'swagger_helper'
 
-RSpec.describe "Users", type: :request do
-  describe "POST /signup" do
-    #pending "add some examples (or delete) #{__FILE__}"
+RSpec.describe 'users', type: :request do
+
+  path '/signup' do
+
+    post('create user') do
+      response(200, 'successful') do
+
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
+    end
   end
-
-
-
-
 end

@@ -1,5 +1,4 @@
-<h1>Teams#show</h1>
-<p>Find me in app/views/teams/show.html.erb</p>
+<h1>Team messages for <%= @team.title %></h1>
 
 <%= form_with url: team_path(@team), method: :get do |form| %>
   <%= form.label :search, "Search Post:" %>
@@ -7,38 +6,54 @@
   <%= form.submit "Search" %>
 <% end %>
 
-<h1>Team name = <%= @team.title %></h1>
-
-<p>From user = <%= @owner_user.username %></p>
-
-<p><%= @last_saw %></p>
-
-<%if session[:user_id] == @team.owner_id %>
-<ul>
-  <li><%= link_to "Destroy", team_path(@team), data: {turbo_method: :delete,turbo_confirm: "Are you sure?"} %></li>
-</ul>
-<% end %>
-
-<%= link_to "Start" , root_path %>
-
-<h2><%= link_to "Return to teams" , teams_path %></h2>
-
 <h2>Post</h2>
+<div style="height:500px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;display: flex;flex-direction: column-reverse;">
+<div style="margin:1px;">
 <%= render @team.team_posts %>
+</div>
+</div>
 
-<h2>Add a comment:</h2>
+<br><h2>Add a comment:</h2>
 <%= render 'team_posts/form' %>
 
-<ul>
 <h2>Members:</h2>
-  <li>
+<div style="height:100px;border:1px solid #ccc;overflow:auto;">
+<ul>
+  <li style="color:green">
   <%= User.find_by(id:@team.owner_id).username%> Owner
   </li>
   <% @members.each do |member| %>
       <%unless @team.owner_id == member.user_id%>
       <li>
+    <% unless User.where(id:member.user_id).blank?%>
       <%= User.find_by(id:member.user_id).username%> Joined at: <%= UserTeam.find_by(user_id:member.user_id,team_id:@team.id).created_at%>
+      <% end %>
+      <% if @team.owner_id == session[:user_id] %>
+          <%= link_to "Remove", user_team_path(member), data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                } %>
+        <%= link_to "Make Owner", teams_owner_path(team_id: params[:id], user_id: member.user_id) %>
+      <% end %>
       </li>
       <% end %>
   <% end %>
 </ul>
+</div>
+
+
+<%if Team.find_by(params[:id]).owner_id == session[:user_id] %>
+<%= form_with url: "/user_teams", method: :post do |form| %>
+  <%= form.label :username, "Invite User:" %>
+  <%= form.text_field :username %>
+    <%= form.hidden_field :team_id, value: params[:id] %>
+    <%= form.hidden_field :status, value: "invitation" %>
+  <%= form.submit "Invite" %>
+  <% flash.each do |type, msg| %>
+    <div>
+      <%= msg %>
+    </div>
+  <% end %>
+  <% end %>
+<% end %>
+<br>

@@ -21,4 +21,10 @@
       <%= form.submit %>
     </div>
   <% end %>
+
+      <% flash.each do |type, msg| %>
+    <div>
+      <%= msg %>
+    </div>
+  <% end %>
   

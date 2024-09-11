@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
     def index
-        @users = User.all
+        @current_user = User.find_by(id:session[:user_id])
       end
     
       def show
@@ -15,9 +15,10 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
     
         if @user.save
-          redirect_to users_path
+          redirect_to root_path
         else
-          render :new, status: :unprocessable_entity
+          flash[:alert] = "Sign up failed"
+          render request.referrer, status: :unprocessable_entity
         end
       end
     
@@ -29,7 +30,7 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
     
         if @user.update(user_params)
-          redirect_to 'users/index'
+          redirect_to root_path
         else
           render :edit, status: :unprocessable_entity
         end
@@ -37,15 +38,14 @@ class UsersController < ApplicationController
     
     
       def destroy
-        @user = User.find(1)
+        @user = User.find(params[:id])
         @user.destroy
-    
-        redirect_to root_path, status: :see_other
+        redirect_to logout_path
       end
     
     
       private
         def user_params
-          params.require(:user).permit(:username, :password, :name ,:password_confirmation , :password_digest)
+          params.require(:user).permit(:username, :password, :name , :email ,:password_confirmation , :password_digest)
         end
 end

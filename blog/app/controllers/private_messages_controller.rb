@@ -1,8 +1,11 @@
 class PrivateMessagesController < ApplicationController
+  before_action :require_login
+
+
   def index
   end
 
-  def new
+  def popup
   end
 
   def show
@@ -21,7 +24,12 @@ class PrivateMessagesController < ApplicationController
 
   def create
     @prv_msg = PrivateMessage.new(message_params)
+    @from_user = Messenger.where(user_id:params[:private_message][:user_id],to_user_id:params[:private_message][:to_user_id])
     @to_user = Messenger.where(user_id:params[:private_message][:to_user_id],to_user_id:params[:private_message][:user_id])
+    if @from_user.blank?
+      @from_user = Messenger.new(user_id:params[:private_message][:user_id],to_user_id:params[:private_message][:to_user_id],status:'messenger',saw_last:true,last_message:DateTime.current)
+      @from_user.save
+    end
     if @prv_msg.save
       if @to_user.blank?
         @to_user = Messenger.new(user_id:params[:private_message][:to_user_id],to_user_id:params[:private_message][:user_id],status:'messenger',saw_last:false)
@@ -32,7 +40,7 @@ class PrivateMessagesController < ApplicationController
         redirect_to  request.referrer
       end
     else
-      render :new, status: :unprocessable_entity
+      redirect_to request.referrer, status: :unprocessable_entity
     end
   end
 

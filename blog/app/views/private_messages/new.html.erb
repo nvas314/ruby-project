@@ -1,7 +1,22 @@
-<h1>PrivateMessages#new</h1>
-<p>Find me in app/views/private_messages/new.html.erb</p>
-<% @messages.each do |message| %>
-    <li>
-      <%= message.user_id %>:<%= message.text %>
-    </li>
-<% end %>
+<%= turbo_frame_tag "modal" do %>
+
+<div class="modal">
+<%= form_with model: @new_message do |form| %>
+  <p>
+    <%= form.label :user_id %><br>
+    <%= form.text_area :user_id %>
+  </p>
+  <p>
+    <%= form.label :to_user_id %><br>
+    <%= form.text_area :to_user_id %>
+  </p>
+    <p>
+      <%= form.label :text %><br>
+      <%= form.text_area :text %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+  </div>
+  <% end %>

@@ -1,6 +1,5 @@
 <% if team_post.post.include?(@search) %>
 
-
 <% if session[:user_id]==team_post.user_id %>
 <p style="color: green">
 <% elsif team_post.created_at >= @last_saw%>
@@ -9,14 +8,13 @@
 <p style="color: red">
 <% end %>
 
-<%= team_post.user_id %><strong>-></strong><%= team_post.post %>
+<%= User.find_by(id:team_post.user_id).username %><strong>-></strong><%= team_post.post %>
 <strong>When:</strong>
 <%= team_post.created_at %> 
 
-<%= link_to "Private message" , team_path(messenger.team_id) %>
+<%= render partial: "private_messages/popup" , locals: {team_post:team_post}%>
 
 
-<%= link_to "Add to contact" , team_path(messenger.team_id) %>
 </p>
 
 
