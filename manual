@@ -11,3 +11,8 @@ gem 'bcrypt', '~> 3.1.13'
 
 rails generate rspec:swagger AuthController
 rake rswag
+
+
+
+
+
