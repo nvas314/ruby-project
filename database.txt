@@ -1,0 +1,72 @@
+// https://dbdiagram.io/d
+
+
+
+Table users {
+  id integer [primary key]
+  username varchar
+  password varchar
+  name varchar
+  email varchar
+  created_at timestamp
+  password_digest varchar
+  password_confirmation varchar
+}
+
+Table messengers {
+  id integer [primary key]
+  user_id integer
+  to_user_id integer
+  status varchar
+  last_message datetime
+  saw_last bool
+}
+
+Table user_teams {
+  id integer [primary key]
+  user_id integer
+  team_id integer
+  status string
+  last_message datetime
+  saw_last bool
+}
+
+Table teams {
+  id integer [primary key]
+  title integer
+  owner_id integer
+  status varchar [note: 'Public/Private']
+}
+
+Table private_messages {
+  id integer [primary key]
+  user_id integer
+  to_user_id integer
+  text text [note: 'Content of the post']
+  created_at timestamp
+}
+
+Table team_posts {
+  id integer [primary key]
+  team_id integer
+  user_id integer
+  post text [note: 'Content of the post']
+  created_at timestamp
+}
+
+Ref: messengers.user_id > users.id // many-to-one
+
+//Ref: contacts.to_user_id - users.id // many-to-one
+
+Ref: private_messages.user_id > users.id // many-to-one
+
+//Ref: private_messages.to_user_id - users.id // many-to-one
+
+Ref: team_posts.team_id > teams.id // many-to-one
+
+Ref: users.id < teams.owner_id
+
+Ref: users.id < user_teams.user_id
+
+//Ref: teams.id - user_teams.team_id
+

@@ -18,7 +18,7 @@ Contacts:
         <% if messenger.saw_last == false %>
         New Message!
         <% end %>
-        <%= link_to "Block", messengers_block_path(messenger) %>
+        <%= link_to "Block", messengers_block_path(Messenger.find_by(id:messenger.id).to_user_id) %>
       </li>
   <% end %>
 </ul>
@@ -40,7 +40,7 @@ Messages:
         <% if messenger.saw_last == false %>
         New Message!
         <% end %>
-        <%= link_to "Add to contact", messengers_add_to_contact_path(messenger) %>
+        <%= link_to "Add to contact", messengers_add_to_contact_path(Messenger.find_by(id:messenger.id).to_user_id) %>
         <%= link_to "Block", messengers_block_path(messenger) %>
       </li>
   <% end %>

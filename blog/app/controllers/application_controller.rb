@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   def update_notifications
     if session[:user_id]
-      @notf_messages = Messenger.where(user_id:session[:user_id],saw_last:false).count
+      @notf_messages = Messenger.where(user_id:session[:user_id],saw_last:false).where.not(status: "blocked") .count
       if @notf_messages == 0
       @notf_messages = ""
       else
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
     def require_login
       if !logged_in?
-      flash[:error] = "You must be logged in to access this section"
+      #flash[:error] = "You must be logged in to access this section"
       redirect_to root_path 
       end
     end

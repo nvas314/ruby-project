@@ -1,17 +1,18 @@
-<h1>Teams#new</h1>
-<p>Find me in app/views/teams/new.html.erb</p>
+<h1>New team</h1>
 
 <%= form_with model: @team do |form| %>
     <div>
       <%= form.label :title %><br>
       <%= form.text_field :title %>
     </div>
-  
     <div>
-      <%= form.label :owner_id %><br>
-      <%= form.text_area :owner_id , :value => session[:user_id] %><br>
+      <%= form.hidden_field :owner_id, :value => session[:user_id]  %>
     </div>
   
+    <% @team.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+
     <div>
     <%= form.label :status %><br>
     <%= form.select :status, [["Public", "public"], ["Private", "private"]]%>

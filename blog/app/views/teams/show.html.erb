@@ -41,8 +41,7 @@
 </ul>
 </div>
 
-
-<%if Team.find_by(params[:id]).owner_id == session[:user_id] %>
+<%if Team.find(params[:id]).owner_id == session[:user_id] %>
 <%= form_with url: "/user_teams", method: :post do |form| %>
   <%= form.label :username, "Invite User:" %>
   <%= form.text_field :username %>

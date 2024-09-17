@@ -58,7 +58,7 @@ class TeamsController < ApplicationController
     if @team.save
       redirect_to @team
     else
-      flash[:alert] = "Cannot create team"
+      #flash[:alert] = "Cannot create team"
       render :new, status: :unprocessable_entity
     end
   end
@@ -94,7 +94,7 @@ class TeamsController < ApplicationController
     
     def is_joined? #is joined in the team?
       if UserTeam.where(user_id:session[:user_id],team_id:params[:id]).blank?
-      flash[:error] = "You are not in this team"
+      #flash[:error] = "You are not in this team"
       redirect_to user_teams_path 
       end
     end

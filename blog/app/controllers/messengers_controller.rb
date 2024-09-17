@@ -21,11 +21,13 @@ class MessengersController < ApplicationController
   
     def create
       #@messenger = Messenger.new
-      @messengers = Messenger.find_by(user_id: session[:user_id],to_user_id:User.find_by(params[:username]).id)
+      #@messengers = Messenger.find_by(user_id: session[:user_id],to_user_id:User.find_by(username: params[:username]).id)
       @to_user = User.find_by(username: params[:username])
-      if !@to_user
-      flash[:alert] = "User does not exist"
+      if User.where(username: params[:username]).blank?
+      #flash[:alert] = "User does not exist"
         redirect_to new_messenger_path
+      elsif @to_user.id == session[:user_id]
+        redirect_to request.referrer
       elsif !Messenger.where(user_id: session[:user_id] , to_user_id:@to_user.id).blank?
         @c_change = Messenger.where(user_id: session[:user_id] , to_user_id:@to_user.id)
         @c_change.update(status: "contact")
@@ -38,10 +40,9 @@ class MessengersController < ApplicationController
     end
 
     def block
-      @messengers = Messenger.find_by(user_id: session[:user_id],to_user_id:User.find_by(params[:username]).id)
-      if @messengers
-      @block_user = Messenger.find(params[:format])
-      @block_user.update(status:"blocked")
+      @messenger = Messenger.where(user_id:session[:user_id],to_user_id:params[:format])
+      if !@messenger.blank?
+      @messenger.update(status:"blocked")
       end
       redirect_to messengers_path
     end
@@ -51,6 +52,12 @@ class MessengersController < ApplicationController
       @new_inv = Messenger.new(user_id:session[:user_id],to_user_id:@to_user,status:"invitation")
       @new_inv.save
       redirect_to private_message_path(@new_messenger)
+    end
+
+    def add_to_contact
+      @messenger = Messenger.find_by(user_id:session[:user_id],to_user_id:params[:format])
+      @messenger.update(status:"contact")
+      redirect_to messengers_path
     end
 
     def destroy

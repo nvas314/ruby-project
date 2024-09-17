@@ -15,10 +15,11 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
     
         if @user.save
+          session[:user_id] = @user.id
           redirect_to root_path
         else
-          flash[:alert] = "Sign up failed"
-          render request.referrer, status: :unprocessable_entity
+          #flash[:alert] = "Sign up failed"
+          render new_user_path  , status: :unprocessable_entity
         end
       end
     
@@ -40,8 +41,8 @@ class UsersController < ApplicationController
       def destroy
         @user = User.find(params[:id])
         @user_id = @user.id
+        @created_teams = Team.where(owner_id:@user_id).destroy_all
         @user.destroy
-        Team.delete_by(owner_id:@user_id)
         redirect_to logout_path
       end
     
