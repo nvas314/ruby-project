@@ -823,3 +823,729 @@ ActionController::RoutingError (No route matches [PUT] "/todos/8/items"):
   
   [1m[36mItem Delete All (0.2ms)[0m  [1m[31mDELETE FROM "items"[0m
   [1m[36mTodo Delete All (0.2ms)[0m  [1m[31mDELETE FROM "todos"[0m
+Started POST "/todos" for 127.0.0.1 at 2024-09-18 14:18:56 +0300
+Processing by TodosController#create as HTML
+  Parameters: {"title"=>"1", "created_by"=>"1", "todo"=>{"title"=>"1", "created_by"=>"1"}}
+[31mUnpermitted parameter: :todo. Context: { controller: TodosController, action: create, request: #<ActionDispatch::Request:0x00007908cc24cbd0>, params: {"title"=>"1", "created_by"=>"1", "controller"=>"todos", "action"=>"create", "todo"=>{"title"=>"1", "created_by"=>"1"}} }[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:12:in `create'
+  [1m[36mTodo Create (1.6ms)[0m  [1m[32mINSERT INTO "todos" ("title", "created_by", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "1"], ["created_by", "1"], ["created_at", "2024-09-18 11:18:56.626283"], ["updated_at", "2024-09-18 11:18:56.626283"]]
+  ↳ app/controllers/todos_controller.rb:12:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:12:in `create'
+Completed 201 Created in 5ms (Views: 0.2ms | ActiveRecord: 2.0ms | Allocations: 2024)
+
+
+Started POST "/todos/9/items" for 127.0.0.1 at 2024-09-18 14:19:36 +0300
+Processing by ItemsController#create as HTML
+  Parameters: {"name"=>"1", "done"=>"false", "todo_id"=>"9", "item"=>{"name"=>"1", "done"=>"false"}}
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+[31mUnpermitted parameters: :todo_id, :item. Context: { controller: ItemsController, action: create, request: #<ActionDispatch::Request:0x00007908cc2691b8>, params: {"name"=>"1", "done"=>"false", "controller"=>"items", "action"=>"create", "todo_id"=>"9", "item"=>{"name"=>"1", "done"=>"false"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:17:in `create'
+  [1m[36mItem Create (1.2ms)[0m  [1m[32mINSERT INTO "items" ("name", "done", "todo_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "1"], ["done", 0], ["todo_id", 9], ["created_at", "2024-09-18 11:19:36.457755"], ["updated_at", "2024-09-18 11:19:36.457755"]]
+  ↳ app/controllers/items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:17:in `create'
+Completed 201 Created in 6ms (Views: 0.3ms | ActiveRecord: 1.5ms | Allocations: 2534)
+
+
+Started PUT "/todos/9/items" for 127.0.0.1 at 2024-09-18 14:19:49 +0300
+  
+ActionController::RoutingError (No route matches [PUT] "/todos/9/items"):
+  
+  [1m[36mItem Load (0.2ms)[0m  [1m[34mSELECT "items".* FROM "items" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+Started PUT "/todos/9/items/9" for 127.0.0.1 at 2024-09-18 14:21:20 +0300
+Processing by ItemsController#update as HTML
+  Parameters: {"name"=>"1", "done"=>"true", "todo_id"=>"9", "id"=>"9", "item"=>{"name"=>"1", "done"=>"true"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 404 Not Found in 3ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 1176)
+
+
+Started PUT "/todos/9/items/5" for 127.0.0.1 at 2024-09-18 14:21:40 +0300
+Processing by ItemsController#update as HTML
+  Parameters: {"name"=>"1", "done"=>"true", "todo_id"=>"9", "id"=>"5", "item"=>{"name"=>"1", "done"=>"true"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.0ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+[31mUnpermitted parameters: :todo_id, :id, :item. Context: { controller: ItemsController, action: update, request: #<ActionDispatch::Request:0x00007908cd16a658>, params: {"name"=>"1", "done"=>"true", "controller"=>"items", "action"=>"update", "todo_id"=>"9", "id"=>"5", "item"=>{"name"=>"1", "done"=>"true"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:23:in `update'
+  [1m[36mItem Update (0.9ms)[0m  [1m[33mUPDATE "items" SET "done" = ?, "updated_at" = ? WHERE "items"."id" = ?[0m  [["done", 1], ["updated_at", "2024-09-18 11:21:40.098694"], ["id", 5]]
+  ↳ app/controllers/items_controller.rb:23:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:23:in `update'
+Completed 204 No Content in 6ms (ActiveRecord: 1.2ms | Allocations: 2885)
+
+
+Started PUT "/todos/9/items/4" for 127.0.0.1 at 2024-09-18 14:21:48 +0300
+Processing by ItemsController#update as HTML
+  Parameters: {"name"=>"1", "done"=>"true", "todo_id"=>"9", "id"=>"4", "item"=>{"name"=>"1", "done"=>"true"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 404 Not Found in 3ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 1071)
+
+
+Started PUT "/todos/9/items/5" for 127.0.0.1 at 2024-09-18 14:21:51 +0300
+Processing by ItemsController#update as HTML
+  Parameters: {"name"=>"1", "done"=>"true", "todo_id"=>"9", "id"=>"5", "item"=>{"name"=>"1", "done"=>"true"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+[31mUnpermitted parameters: :todo_id, :id, :item. Context: { controller: ItemsController, action: update, request: #<ActionDispatch::Request:0x00007908cc1c4a78>, params: {"name"=>"1", "done"=>"true", "controller"=>"items", "action"=>"update", "todo_id"=>"9", "id"=>"5", "item"=>{"name"=>"1", "done"=>"true"}} }[0m
+Completed 204 No Content in 3ms (ActiveRecord: 0.1ms | Allocations: 1256)
+
+
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+Started PUT "/todos/9/items/5" for 127.0.0.1 at 2024-09-18 14:22:13 +0300
+Processing by ItemsController#update as HTML
+  Parameters: {"name"=>"1", "done"=>"true", "todo_id"=>"9", "id"=>"5", "item"=>{"name"=>"1", "done"=>"true"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:41:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:45:in `set_todo_item'
+[31mUnpermitted parameters: :todo_id, :id, :item. Context: { controller: ItemsController, action: update, request: #<ActionDispatch::Request:0x00007908cc3bf328>, params: {"name"=>"1", "done"=>"true", "controller"=>"items", "action"=>"update", "todo_id"=>"9", "id"=>"5", "item"=>{"name"=>"1", "done"=>"true"}} }[0m
+Completed 204 No Content in 13ms (Views: 0.3ms | ActiveRecord: 1.7ms | Allocations: 7957)
+
+
+Started PUT "/todos/9/items/5" for 127.0.0.1 at 2024-09-18 14:22:24 +0300
+Processing by ItemsController#update as HTML
+  Parameters: {"name"=>"2", "done"=>"true", "todo_id"=>"9", "id"=>"5", "item"=>{"name"=>"2", "done"=>"true"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:41:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:45:in `set_todo_item'
+[31mUnpermitted parameters: :todo_id, :id, :item. Context: { controller: ItemsController, action: update, request: #<ActionDispatch::Request:0x00007908cc2001e0>, params: {"name"=>"2", "done"=>"true", "controller"=>"items", "action"=>"update", "todo_id"=>"9", "id"=>"5", "item"=>{"name"=>"2", "done"=>"true"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:23:in `update'
+  [1m[36mItem Update (0.9ms)[0m  [1m[33mUPDATE "items" SET "name" = ?, "updated_at" = ? WHERE "items"."id" = ?[0m  [["name", "2"], ["updated_at", "2024-09-18 11:22:24.035323"], ["id", 5]]
+  ↳ app/controllers/items_controller.rb:23:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:23:in `update'
+Completed 204 No Content in 7ms (Views: 0.2ms | ActiveRecord: 1.2ms | Allocations: 2810)
+
+
+Started PUT "/todos/9/items/5" for 127.0.0.1 at 2024-09-18 14:22:40 +0300
+Processing by ItemsController#update as */*
+  Parameters: {"todo_id"=>"9", "id"=>"5"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+[31mUnpermitted parameters: :todo_id, :id. Context: { controller: ItemsController, action: update, request: #<ActionDispatch::Request:0x00007908cc3c7780>, params: {"controller"=>"items", "action"=>"update", "todo_id"=>"9", "id"=>"5"} }[0m
+Completed 204 No Content in 16ms (ActiveRecord: 1.7ms | Allocations: 9274)
+
+
+Started GET "/todos/9/items/5" for 127.0.0.1 at 2024-09-18 14:22:46 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"9", "id"=>"5"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 200 OK in 4ms (Views: 0.4ms | ActiveRecord: 0.2ms | Allocations: 1156)
+
+
+Started DELETE "/todos/9/items/5" for 127.0.0.1 at 2024-09-18 14:22:57 +0300
+Processing by ItemsController#destroy as */*
+  Parameters: {"todo_id"=>"9", "id"=>"5"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:29:in `destroy'
+  [1m[36mItem Destroy (0.9ms)[0m  [1m[31mDELETE FROM "items" WHERE "items"."id" = ?[0m  [["id", 5]]
+  ↳ app/controllers/items_controller.rb:29:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:29:in `destroy'
+Completed 204 No Content in 5ms (ActiveRecord: 1.1ms | Allocations: 2273)
+
+
+Started GET "/todos/9/items/5" for 127.0.0.1 at 2024-09-18 14:22:59 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"9", "id"=>"5"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 9], ["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 404 Not Found in 3ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 1085)
+
+
+Started GET "/todos/9/items" for 127.0.0.1 at 2024-09-18 14:23:09 +0300
+Processing by ItemsController#index as */*
+  Parameters: {"todo_id"=>"9"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ?[0m  [["todo_id", 9]]
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.2ms | Allocations: 1241)
+
+
+Started GET "/todos/9" for 127.0.0.1 at 2024-09-18 14:23:14 +0300
+Processing by TodosController#show as */*
+  Parameters: {"id"=>"9"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.1ms | Allocations: 572)
+
+
+Started GET "/todos" for 127.0.0.1 at 2024-09-18 14:23:17 +0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.2ms | Allocations: 669)
+
+
+Started POST "/signup" for 127.0.0.1 at 2024-09-18 15:10:53 +0300
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"nikos", "password"=>"[FILTERED]", "user"=>{"username"=>"nikos", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :user. Context: { controller: UsersController, action: create, request: #<ActionDispatch::Request:0x00007908cc74a830>, params: {"username"=>"nikos", "password"=>"[FILTERED]", "controller"=>"users", "action"=>"create", "user"=>{"username"=>"nikos", "password"=>"[FILTERED]"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:5:in `create'
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "password", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "nikos"], ["password", "[FILTERED]"], ["password_digest", "[FILTERED]"], ["created_at", "2024-09-18 12:10:53.986207"], ["updated_at", "2024-09-18 12:10:53.986207"]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 201 Created in 172ms (Views: 0.3ms | ActiveRecord: 2.3ms | Allocations: 4528)
+
+
+Started POST "/auth/login" for 127.0.0.1 at 2024-09-18 15:11:01 +0300
+Processing by AuthController#create as HTML
+  Parameters: {"username"=>"nikos", "password"=>"[FILTERED]", "auth"=>{"username"=>"nikos", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "nikos"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:11:in `create'
+Completed 204 No Content in 168ms (ActiveRecord: 0.2ms | Allocations: 670)
+
+
+Started POST "/auth/login" for 127.0.0.1 at 2024-09-18 15:11:04 +0300
+Processing by AuthController#create as HTML
+  Parameters: {"username"=>"nikos", "password"=>"[FILTERED]", "auth"=>{"username"=>"nikos", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "nikos"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:11:in `create'
+Completed 200 OK in 166ms (Views: 0.4ms | ActiveRecord: 0.1ms | Allocations: 602)
+
+
+Started POST "/todos" for 127.0.0.1 at 2024-09-18 15:11:14 +0300
+Processing by TodosController#create as HTML
+  Parameters: {"title"=>"Everyday actions", "created_by"=>"nikos", "todo"=>{"title"=>"Everyday actions", "created_by"=>"nikos"}}
+[31mUnpermitted parameter: :todo. Context: { controller: TodosController, action: create, request: #<ActionDispatch::Request:0x00007908cc7d39a0>, params: {"title"=>"Everyday actions", "created_by"=>"nikos", "controller"=>"todos", "action"=>"create", "todo"=>{"title"=>"Everyday actions", "created_by"=>"nikos"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:12:in `create'
+  [1m[36mTodo Create (1.2ms)[0m  [1m[32mINSERT INTO "todos" ("title", "created_by", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "Everyday actions"], ["created_by", "nikos"], ["created_at", "2024-09-18 12:11:14.446330"], ["updated_at", "2024-09-18 12:11:14.446330"]]
+  ↳ app/controllers/todos_controller.rb:12:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:12:in `create'
+Completed 201 Created in 4ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 1976)
+
+
+Started PUT "/todos/:id" for 127.0.0.1 at 2024-09-18 15:11:22 +0300
+Processing by TodosController#update as HTML
+  Parameters: {"title"=>"Everynight actions", "id"=>":id", "todo"=>{"title"=>"Everynight actions"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 404 Not Found in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 447)
+
+
+Started PUT "/todos/10" for 127.0.0.1 at 2024-09-18 15:11:31 +0300
+Processing by TodosController#update as HTML
+  Parameters: {"title"=>"Everynight actions", "id"=>"10", "todo"=>{"title"=>"Everynight actions"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+[31mUnpermitted parameters: :id, :todo. Context: { controller: TodosController, action: update, request: #<ActionDispatch::Request:0x00007908cce07808>, params: {"title"=>"Everynight actions", "controller"=>"todos", "action"=>"update", "id"=>"10", "todo"=>{"title"=>"Everynight actions"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:23:in `update'
+  [1m[36mTodo Update (1.1ms)[0m  [1m[33mUPDATE "todos" SET "title" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["title", "Everynight actions"], ["updated_at", "2024-09-18 12:11:31.116090"], ["id", 10]]
+  ↳ app/controllers/todos_controller.rb:23:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:23:in `update'
+Completed 204 No Content in 5ms (ActiveRecord: 1.3ms | Allocations: 2171)
+
+
+Started PUT "/todos/10" for 127.0.0.1 at 2024-09-18 15:11:38 +0300
+Processing by TodosController#update as */*
+  Parameters: {"id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+[31mUnpermitted parameter: :id. Context: { controller: TodosController, action: update, request: #<ActionDispatch::Request:0x00007908cd0bee20>, params: {"controller"=>"todos", "action"=>"update", "id"=>"10"} }[0m
+Completed 204 No Content in 2ms (ActiveRecord: 0.1ms | Allocations: 586)
+
+
+Started PUT "/todo/10" for 127.0.0.1 at 2024-09-18 15:11:47 +0300
+  
+ActionController::RoutingError (No route matches [PUT] "/todo/10"):
+  
+Started PUT "/todos/10" for 127.0.0.1 at 2024-09-18 15:11:52 +0300
+Processing by TodosController#update as */*
+  Parameters: {"id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+[31mUnpermitted parameter: :id. Context: { controller: TodosController, action: update, request: #<ActionDispatch::Request:0x00007908cd161c38>, params: {"controller"=>"todos", "action"=>"update", "id"=>"10"} }[0m
+Completed 204 No Content in 2ms (ActiveRecord: 0.1ms | Allocations: 586)
+
+
+Started PUT "/todos" for 127.0.0.1 at 2024-09-18 15:11:56 +0300
+  
+ActionController::RoutingError (No route matches [PUT] "/todos"):
+  
+Started PUT "/todo" for 127.0.0.1 at 2024-09-18 15:12:00 +0300
+  
+ActionController::RoutingError (No route matches [PUT] "/todo"):
+  
+Started PUT "/todos" for 127.0.0.1 at 2024-09-18 15:12:01 +0300
+  
+ActionController::RoutingError (No route matches [PUT] "/todos"):
+  
+Started GET "/todos" for 127.0.0.1 at 2024-09-18 15:12:11 +0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.1ms | Allocations: 704)
+
+
+Started GET "/todos/10" for 127.0.0.1 at 2024-09-18 15:12:19 +0300
+Processing by TodosController#show as */*
+  Parameters: {"id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms | Allocations: 469)
+
+
+Started GET "/todos" for 127.0.0.1 at 2024-09-18 15:12:32 +0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 680)
+
+
+Started GET "/todos/10" for 127.0.0.1 at 2024-09-18 15:12:43 +0300
+Processing by TodosController#show as */*
+  Parameters: {"id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms | Allocations: 469)
+
+
+Started GET "/todos/10/items" for 127.0.0.1 at 2024-09-18 15:12:46 +0300
+Processing by ItemsController#index as */*
+  Parameters: {"todo_id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ?[0m  [["todo_id", 10]]
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 3ms (Views: 1.3ms | ActiveRecord: 0.2ms | Allocations: 1064)
+
+
+Started POST "/todos/10/items" for 127.0.0.1 at 2024-09-18 15:13:01 +0300
+Processing by ItemsController#create as HTML
+  Parameters: {"name"=>"Take the cat on a walk", "done"=>"false", "todo_id"=>"10", "item"=>{"name"=>"Take the cat on a walk", "done"=>"false"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+[31mUnpermitted parameters: :todo_id, :item. Context: { controller: ItemsController, action: create, request: #<ActionDispatch::Request:0x00007908cc761e18>, params: {"name"=>"Take the cat on a walk", "done"=>"false", "controller"=>"items", "action"=>"create", "todo_id"=>"10", "item"=>{"name"=>"Take the cat on a walk", "done"=>"false"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:17:in `create'
+  [1m[36mItem Create (1.1ms)[0m  [1m[32mINSERT INTO "items" ("name", "done", "todo_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Take the cat on a walk"], ["done", 0], ["todo_id", 10], ["created_at", "2024-09-18 12:13:01.153840"], ["updated_at", "2024-09-18 12:13:01.153840"]]
+  ↳ app/controllers/items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:17:in `create'
+Completed 201 Created in 6ms (Views: 0.2ms | ActiveRecord: 1.7ms | Allocations: 2583)
+
+
+Started POST "/todos/10/items" for 127.0.0.1 at 2024-09-18 15:13:12 +0300
+Processing by ItemsController#create as */*
+  Parameters: {"todo_id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+[31mUnpermitted parameter: :todo_id. Context: { controller: ItemsController, action: create, request: #<ActionDispatch::Request:0x00007908cc3bb048>, params: {"controller"=>"items", "action"=>"create", "todo_id"=>"10"} }[0m
+Completed 422 Unprocessable Content in 3ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 1531)
+
+
+Started GET "/todos/10/items" for 127.0.0.1 at 2024-09-18 15:13:24 +0300
+Processing by ItemsController#index as */*
+  Parameters: {"todo_id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ?[0m  [["todo_id", 10]]
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 1110)
+
+
+Started GET "/todos/10/items/6" for 127.0.0.1 at 2024-09-18 15:13:28 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"10", "id"=>"6"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 10], ["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 0.2ms | Allocations: 1131)
+
+
+Started PUT "/todos/:id/items" for 127.0.0.1 at 2024-09-18 15:14:09 +0300
+  
+ActionController::RoutingError (No route matches [PUT] "/todos/:id/items"):
+  
+Started GET "/todos/:id" for 127.0.0.1 at 2024-09-18 15:14:19 +0300
+Processing by TodosController#show as */*
+  Parameters: {"id"=>":id"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 404 Not Found in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 412)
+
+
+Started GET "/todos/10" for 127.0.0.1 at 2024-09-18 15:14:29 +0300
+Processing by TodosController#show as */*
+  Parameters: {"id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms | Allocations: 469)
+
+
+Started GET "/todos/10/items" for 127.0.0.1 at 2024-09-18 15:14:33 +0300
+Processing by ItemsController#index as */*
+  Parameters: {"todo_id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.0ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ?[0m  [["todo_id", 10]]
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.1ms | Allocations: 1103)
+
+
+Started GET "/todos/10/items/6" for 127.0.0.1 at 2024-09-18 15:14:35 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"10", "id"=>"6"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 10], ["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.1ms | Allocations: 1103)
+
+
+Started PUT "/todos/10/items/6" for 127.0.0.1 at 2024-09-18 15:15:01 +0300
+Processing by ItemsController#update as HTML
+  Parameters: {"name"=>"Take the dog on a walk", "done"=>"true", "todo_id"=>"10", "id"=>"6", "item"=>{"name"=>"Take the dog on a walk", "done"=>"true"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 10], ["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+[31mUnpermitted parameters: :todo_id, :id, :item. Context: { controller: ItemsController, action: update, request: #<ActionDispatch::Request:0x00007908ce07c628>, params: {"name"=>"Take the dog on a walk", "done"=>"true", "controller"=>"items", "action"=>"update", "todo_id"=>"10", "id"=>"6", "item"=>{"name"=>"Take the dog on a walk", "done"=>"true"}} }[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:23:in `update'
+  [1m[36mItem Update (0.9ms)[0m  [1m[33mUPDATE "items" SET "name" = ?, "done" = ?, "updated_at" = ? WHERE "items"."id" = ?[0m  [["name", "Take the dog on a walk"], ["done", 1], ["updated_at", "2024-09-18 12:15:01.530004"], ["id", 6]]
+  ↳ app/controllers/items_controller.rb:23:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:23:in `update'
+Completed 204 No Content in 6ms (ActiveRecord: 1.2ms | Allocations: 2734)
+
+
+Started GET "/todos/10/items/6" for 127.0.0.1 at 2024-09-18 15:15:05 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"10", "id"=>"6"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 10], ["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.1ms | Allocations: 1103)
+
+
+Started DELETE "/todos/10/items/6" for 127.0.0.1 at 2024-09-18 15:15:32 +0300
+Processing by ItemsController#destroy as */*
+  Parameters: {"todo_id"=>"10", "id"=>"6"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 10], ["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:29:in `destroy'
+  [1m[36mItem Destroy (0.8ms)[0m  [1m[31mDELETE FROM "items" WHERE "items"."id" = ?[0m  [["id", 6]]
+  ↳ app/controllers/items_controller.rb:29:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:29:in `destroy'
+Completed 204 No Content in 5ms (ActiveRecord: 1.1ms | Allocations: 2196)
+
+
+Started GET "/todos/10/items/6" for 127.0.0.1 at 2024-09-18 15:15:37 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"10", "id"=>"6"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 10], ["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 404 Not Found in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 1071)
+
+
+Started GET "/todos/10" for 127.0.0.1 at 2024-09-18 15:15:46 +0300
+Processing by TodosController#show as */*
+  Parameters: {"id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.1ms | Allocations: 469)
+
+
+Started DELETE "/todos/10" for 127.0.0.1 at 2024-09-18 15:15:56 +0300
+Processing by TodosController#destroy as */*
+  Parameters: {"id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:29:in `destroy'
+  [1m[36mItem Load (1.0ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ?[0m  [["todo_id", 10]]
+  ↳ app/controllers/todos_controller.rb:29:in `destroy'
+  [1m[36mTodo Destroy (0.1ms)[0m  [1m[31mDELETE FROM "todos" WHERE "todos"."id" = ?[0m  [["id", 10]]
+  ↳ app/controllers/todos_controller.rb:29:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:29:in `destroy'
+Completed 204 No Content in 5ms (ActiveRecord: 1.3ms | Allocations: 2321)
+
+
+Started GET "/todos/10" for 127.0.0.1 at 2024-09-18 15:15:58 +0300
+Processing by TodosController#show as */*
+  Parameters: {"id"=>"10"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 404 Not Found in 1ms (Views: 0.1ms | ActiveRecord: 0.1ms | Allocations: 414)
+
+
+Started GET "/todos" for 127.0.0.1 at 2024-09-18 15:16:00 +0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.1ms | Allocations: 620)
+
+
+  [1m[36mItem Delete All (0.1ms)[0m  [1m[31mDELETE FROM "items"[0m
+  [1m[36mTodo Delete All (0.2ms)[0m  [1m[31mDELETE FROM "todos"[0m
+  [1m[36mUser Delete All (0.2ms)[0m  [1m[31mDELETE FROM "users"[0m
+Started GET "/" for 127.0.0.1 at 2024-09-18 17:45:44 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/nick/.asdf/installs/ruby/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/nick/.asdf/installs/ruby/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.1.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.5ms | Allocations: 376)
+Completed 200 OK in 13ms (Views: 4.8ms | ActiveRecord: 0.0ms | Allocations: 4189)
+
+
+Started POST "/signup" for 127.0.0.1 at 2024-09-18 17:46:03 +0300
+Processing by UsersController#create as HTML
+  Parameters: {"username"=>"nikos", "password"=>"[FILTERED]", "user"=>{"username"=>"nikos", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :user. Context: { controller: UsersController, action: create, request: #<ActionDispatch::Request:0x000074b6be908668>, params: {"username"=>"nikos", "password"=>"[FILTERED]", "controller"=>"users", "action"=>"create", "user"=>{"username"=>"nikos", "password"=>"[FILTERED]"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:5:in `create'
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "password", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "nikos"], ["password", "[FILTERED]"], ["password_digest", "[FILTERED]"], ["created_at", "2024-09-18 14:46:04.098722"], ["updated_at", "2024-09-18 14:46:04.098722"]]
+  ↳ app/controllers/users_controller.rb:5:in `create'
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:5:in `create'
+Completed 201 Created in 186ms (Views: 0.4ms | ActiveRecord: 6.8ms | Allocations: 8435)
+
+
+Started POST "/auth/login" for 127.0.0.1 at 2024-09-18 17:46:29 +0300
+Processing by AuthController#create as HTML
+  Parameters: {"username"=>"nikos", "password"=>"[FILTERED]", "auth"=>{"username"=>"nikos", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "nikos"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:11:in `create'
+Completed 200 OK in 179ms (Views: 0.4ms | ActiveRecord: 0.2ms | Allocations: 2605)
+
+
+Started POST "/auth/login" for 127.0.0.1 at 2024-09-18 17:46:37 +0300
+Processing by AuthController#create as HTML
+  Parameters: {"username"=>"nikos", "password"=>"[FILTERED]", "auth"=>{"username"=>"nikos", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "nikos"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:11:in `create'
+Completed 204 No Content in 169ms (ActiveRecord: 0.1ms | Allocations: 438)
+
+
+Started POST "/todos" for 127.0.0.1 at 2024-09-18 17:47:13 +0300
+Processing by TodosController#create as HTML
+  Parameters: {"title"=>"Everyday actions", "created_by"=>"nikos", "todo"=>{"title"=>"Everyday actions", "created_by"=>"nikos"}}
+[31mUnpermitted parameter: :todo. Context: { controller: TodosController, action: create, request: #<ActionDispatch::Request:0x000074b6bedd64b0>, params: {"title"=>"Everyday actions", "created_by"=>"nikos", "controller"=>"todos", "action"=>"create", "todo"=>{"title"=>"Everyday actions", "created_by"=>"nikos"}} }[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:12:in `create'
+  [1m[36mTodo Create (1.2ms)[0m  [1m[32mINSERT INTO "todos" ("title", "created_by", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "Everyday actions"], ["created_by", "nikos"], ["created_at", "2024-09-18 14:47:13.766607"], ["updated_at", "2024-09-18 14:47:13.766607"]]
+  ↳ app/controllers/todos_controller.rb:12:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:12:in `create'
+Completed 201 Created in 12ms (Views: 0.4ms | ActiveRecord: 1.7ms | Allocations: 5455)
+
+
+Started GET "/todos" for 127.0.0.1 at 2024-09-18 17:47:29 +0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.1ms | Allocations: 764)
+
+
+Started GET "/todos/11" for 127.0.0.1 at 2024-09-18 17:47:33 +0300
+Processing by TodosController#show as */*
+  Parameters: {"id"=>"11"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.1ms | Allocations: 657)
+
+
+Started PUT "/todos/11" for 127.0.0.1 at 2024-09-18 17:47:49 +0300
+Processing by TodosController#update as HTML
+  Parameters: {"title"=>"Everynight actions", "id"=>"11", "todo"=>{"title"=>"Everynight actions"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+[31mUnpermitted parameters: :id, :todo. Context: { controller: TodosController, action: update, request: #<ActionDispatch::Request:0x000074b6bff408e0>, params: {"title"=>"Everynight actions", "controller"=>"todos", "action"=>"update", "id"=>"11", "todo"=>{"title"=>"Everynight actions"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:23:in `update'
+  [1m[36mTodo Update (1.1ms)[0m  [1m[33mUPDATE "todos" SET "title" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["title", "Everynight actions"], ["updated_at", "2024-09-18 14:47:49.265271"], ["id", 11]]
+  ↳ app/controllers/todos_controller.rb:23:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:23:in `update'
+Completed 204 No Content in 5ms (ActiveRecord: 1.3ms | Allocations: 2311)
+
+
+Started GET "/todos/11" for 127.0.0.1 at 2024-09-18 17:47:53 +0300
+Processing by TodosController#show as */*
+  Parameters: {"id"=>"11"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.1ms | Allocations: 472)
+
+
+Started GET "/todos" for 127.0.0.1 at 2024-09-18 17:48:16 +0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.1ms | Allocations: 621)
+
+
+Started GET "/todos/11/items" for 127.0.0.1 at 2024-09-18 17:48:24 +0300
+Processing by ItemsController#index as */*
+  Parameters: {"todo_id"=>"11"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ?[0m  [["todo_id", 11]]
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 19ms (Views: 3.7ms | ActiveRecord: 0.5ms | Allocations: 4312)
+
+
+Started POST "/todos/11/items" for 127.0.0.1 at 2024-09-18 17:48:45 +0300
+Processing by ItemsController#create as HTML
+  Parameters: {"name"=>"Take the dog on a walk", "done"=>"false", "todo_id"=>"11", "item"=>{"name"=>"Take the dog on a walk", "done"=>"false"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+[31mUnpermitted parameters: :todo_id, :item. Context: { controller: ItemsController, action: create, request: #<ActionDispatch::Request:0x000074b6be0d9e38>, params: {"name"=>"Take the dog on a walk", "done"=>"false", "controller"=>"items", "action"=>"create", "todo_id"=>"11", "item"=>{"name"=>"Take the dog on a walk", "done"=>"false"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:17:in `create'
+  [1m[36mItem Create (1.5ms)[0m  [1m[32mINSERT INTO "items" ("name", "done", "todo_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Take the dog on a walk"], ["done", 0], ["todo_id", 11], ["created_at", "2024-09-18 14:48:45.468468"], ["updated_at", "2024-09-18 14:48:45.468468"]]
+  ↳ app/controllers/items_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:17:in `create'
+Completed 201 Created in 21ms (Views: 0.3ms | ActiveRecord: 1.7ms | Allocations: 6792)
+
+
+Started GET "/todos/11/items" for 127.0.0.1 at 2024-09-18 17:48:48 +0300
+Processing by ItemsController#index as */*
+  Parameters: {"todo_id"=>"11"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ?[0m  [["todo_id", 11]]
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 1137)
+
+
+Started GET "/todos/11/items/7" for 127.0.0.1 at 2024-09-18 17:48:56 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"11", "id"=>"7"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.2ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 11], ["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 200 OK in 3ms (Views: 0.4ms | ActiveRecord: 0.2ms | Allocations: 1204)
+
+
+Started PUT "/todos/11/items/7" for 127.0.0.1 at 2024-09-18 17:49:25 +0300
+Processing by ItemsController#update as HTML
+  Parameters: {"name"=>"Take the dog on a walk", "done"=>"true", "todo_id"=>"11", "id"=>"7", "item"=>{"name"=>"Take the dog on a walk", "done"=>"true"}}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 11], ["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+[31mUnpermitted parameters: :todo_id, :id, :item. Context: { controller: ItemsController, action: update, request: #<ActionDispatch::Request:0x000074b6be0511a0>, params: {"name"=>"Take the dog on a walk", "done"=>"true", "controller"=>"items", "action"=>"update", "todo_id"=>"11", "id"=>"7", "item"=>{"name"=>"Take the dog on a walk", "done"=>"true"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:23:in `update'
+  [1m[36mItem Update (1.2ms)[0m  [1m[33mUPDATE "items" SET "done" = ?, "updated_at" = ? WHERE "items"."id" = ?[0m  [["done", 1], ["updated_at", "2024-09-18 14:49:25.942859"], ["id", 7]]
+  ↳ app/controllers/items_controller.rb:23:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:23:in `update'
+Completed 204 No Content in 7ms (ActiveRecord: 1.5ms | Allocations: 2760)
+
+
+Started GET "/todos/11/items/7" for 127.0.0.1 at 2024-09-18 17:49:32 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"11", "id"=>"7"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 11], ["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.1ms | Allocations: 1105)
+
+
+Started GET "/todos/11/items/7" for 127.0.0.1 at 2024-09-18 17:49:46 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"11", "id"=>"7"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 11], ["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 200 OK in 3ms (Views: 0.3ms | ActiveRecord: 0.1ms | Allocations: 1105)
+
+
+Started DELETE "/todos/11/items/7" for 127.0.0.1 at 2024-09-18 17:49:54 +0300
+Processing by ItemsController#destroy as */*
+  Parameters: {"todo_id"=>"11", "id"=>"7"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 11], ["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/items_controller.rb:29:in `destroy'
+  [1m[36mItem Destroy (0.9ms)[0m  [1m[31mDELETE FROM "items" WHERE "items"."id" = ?[0m  [["id", 7]]
+  ↳ app/controllers/items_controller.rb:29:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/items_controller.rb:29:in `destroy'
+Completed 204 No Content in 7ms (ActiveRecord: 1.2ms | Allocations: 2258)
+
+
+Started GET "/todos/11/items/7" for 127.0.0.1 at 2024-09-18 17:49:56 +0300
+Processing by ItemsController#show as */*
+  Parameters: {"todo_id"=>"11", "id"=>"7"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:40:in `set_todo'
+  [1m[36mItem Load (0.1ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ? AND "items"."id" = ? LIMIT ?[0m  [["todo_id", 11], ["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/items_controller.rb:44:in `set_todo_item'
+Completed 404 Not Found in 3ms (Views: 0.2ms | ActiveRecord: 0.1ms | Allocations: 1115)
+
+
+Started DELETE "/todos/11" for 127.0.0.1 at 2024-09-18 17:50:04 +0300
+Processing by TodosController#destroy as */*
+  Parameters: {"id"=>"11"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:41:in `set_todo'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:29:in `destroy'
+  [1m[36mItem Load (1.7ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."todo_id" = ?[0m  [["todo_id", 11]]
+  ↳ app/controllers/todos_controller.rb:29:in `destroy'
+  [1m[36mTodo Destroy (0.1ms)[0m  [1m[31mDELETE FROM "todos" WHERE "todos"."id" = ?[0m  [["id", 11]]
+  ↳ app/controllers/todos_controller.rb:29:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:29:in `destroy'
+Completed 204 No Content in 6ms (ActiveRecord: 1.9ms | Allocations: 2321)
+
+
+Started GET "/todos" for 127.0.0.1 at 2024-09-18 17:50:12 +0300
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+  ↳ app/controllers/concerns/response.rb:3:in `json_response'
+Completed 200 OK in 1ms (Views: 1.2ms | ActiveRecord: 0.1ms | Allocations: 550)
+
+
