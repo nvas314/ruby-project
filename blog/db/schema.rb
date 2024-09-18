@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_09_10_224736) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -22,7 +25,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_224736) do
   create_table "comments", force: :cascade do |t|
     t.string "commenter"
     t.text "body"
-    t.integer "article_id", null: false
+    t.bigint "article_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
@@ -30,7 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_224736) do
   end
 
   create_table "messengers", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "to_user_id"
     t.string "status"
     t.boolean "saw_last"
@@ -41,7 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_224736) do
   end
 
   create_table "private_messages", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "to_user_id"
     t.text "text"
     t.datetime "created_at", null: false
@@ -50,7 +53,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_224736) do
   end
 
   create_table "team_posts", force: :cascade do |t|
-    t.integer "team_id", null: false
+    t.bigint "team_id", null: false
     t.integer "user_id"
     t.text "post"
     t.datetime "created_at", null: false
@@ -67,7 +70,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_224736) do
   end
 
   create_table "user_teams", force: :cascade do |t|
-    t.integer "team_id", null: false
+    t.bigint "team_id", null: false
     t.integer "user_id"
     t.string "status"
     t.datetime "last_message"
