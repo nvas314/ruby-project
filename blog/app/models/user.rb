@@ -2,7 +2,6 @@ class User < ApplicationRecord
     has_secure_password
 
 
-    :omniauthable
 
 
     has_many :messengers, dependent: :destroy
